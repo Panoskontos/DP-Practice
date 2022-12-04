@@ -1,9 +1,20 @@
 package panos;
+
+
+import java.util.ArrayList;
+import java.util.List;
+
+
 // implements Lazy Initialization with on-demand holder
-public class Store {
+public class Store implements Subscribe{
     private static String name;
+
+    private List<Observer> endiaferomenoi = new ArrayList<>();
     private int laptopCount = 0;
     private int DesktopCount = 0;
+    private int laptopInterestedCount = 0;
+    private int DesktopInterestedCount = 0;
+
 
     private Store(String name){
         this.name = name;
@@ -20,6 +31,14 @@ public class Store {
 
     public int getLaptopCount() {
         return laptopCount;
+    }
+
+    public int getLaptopInterestedCount() {
+        return laptopInterestedCount;
+    }
+
+    public int getDesktopInterestedCount() {
+        return DesktopInterestedCount;
     }
 
     public int getDesktopCount() {
@@ -40,5 +59,48 @@ public class Store {
         this.DesktopCount =this.DesktopCount-1;
     }
 
+    @Override
+    public void addSubscriber(Observer observer, String interest) {
+        endiaferomenoi.add(observer);
+        if(interest=="Laptop"){
+            laptopInterestedCount=laptopInterestedCount+1;
+        }
+        if(interest=="Desktop"){
+            DesktopInterestedCount=DesktopInterestedCount+1;
+        }
 
+
+
+
+    }
+
+    @Override
+    public void removeSubscriber(Observer observer, String interest) {
+        endiaferomenoi.remove(observer);
+        if(interest=="Laptop"){
+            laptopInterestedCount=laptopInterestedCount-1;
+        }
+        if(interest=="Desktop"){
+            DesktopInterestedCount=DesktopInterestedCount-1;
+        }
+    }
+
+    @Override
+    public void handleSubscriber(Observer observer,String interest) {
+        if(interest=="Laptop"&&laptopCount>0){
+            System.out.println("Laptop is available");
+            removeLaptop();
+            observer.match();
+            removeSubscriber(observer,interest);
+        }
+        if(interest=="Desktop"&&DesktopCount>0){
+            System.out.println("Desktop is available");
+            removeDesktop();
+            observer.match();
+            removeSubscriber(observer,interest);
+        }
+
+
+
+    }
 }

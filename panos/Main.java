@@ -81,50 +81,41 @@ public class Main {
         System.out.println("\n-----------------------------------------------\n");
 
 
-//        Initilizing Subscription
-        Subscription sub1 = new Subscription();
+
 
         System.out.println("Enter number of clients:");
         int clients = myobj.nextInt();
 
         System.out.println("\n----------------Clients wanted------------------\n");
         for (int i=0; i<clients;i++){
+
+//            Generate Random Client
             Random generator = new Random();
             int randomIndexCategory = generator.nextInt(Category.length);
             System.out.println("client "+(i+1)+" wants "+Category[randomIndexCategory]);
             Client c1 = new Client(i+1,Category[randomIndexCategory]);
 
-            sub1.addListener(c1, c1.getInterest());
 
-            // remove from storage array and endiaferomenoi array
-            if(Category[randomIndexCategory]=="Laptop"&&s1.getLaptopCount()>0){
-                s1.removeLaptop();
-                sub1.removeListener(c1,c1.getInterest());
-                System.out.println("Laptop is available");
-                c1.action();
-            }
-            if(Category[randomIndexCategory]=="Desktop"&&s1.getDesktopCount()>0){
-                s1.removeDesktop();
-                sub1.removeListener(c1, c1.getInterest());
-                System.out.println("Desktop is available");
-                c1.action();
-            }
-
+//            Subscribe client and handle him if there are any computers for him
+            s1.addSubscriber(c1,c1.getInterest());
+            s1.handleSubscriber(c1,c1.getInterest());
 
         }
         System.out.println("\n--------------------------------------------------\n");
 
 
 
-//        System.out.println("Desktops: "+s1.getDesktopCount());
-//        System.out.println("Laptops: "+s1.getLaptopCount());
+//
         System.out.println("\n----------------Final Results------------------\n");
         System.out.println("Desktops Remaining "+s1.getDesktopCount());
         System.out.println("Laptops Remaining "+s1.getLaptopCount());
         System.out.println("\n");
-        System.out.println("Desktop Interested Clients Remaining "+sub1.getDesktopIterestedCount());
-        System.out.println("Laptop Interested Clients Remaining "+sub1.getLaptopInterestedCount());
+        System.out.println("Desktop Interested Clients Remaining "+s1.getDesktopInterestedCount());
+        System.out.println("Laptop Interested Clients Remaining "+s1.getLaptopInterestedCount());
         System.out.println("\n");
+
+
+//
 
 
 

@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Client implements INotifyForComputer{
+public class Client implements Observer{
     private final String interest;
     private final int ID;
 
@@ -12,18 +12,14 @@ public class Client implements INotifyForComputer{
         this.interest = interest;
         this.ID = ID;
     }
-//
-//    @Override
-    public void ClientFactoryComputerMatchOccurred(String Computerinterest) {
-        System.out.println("There is a computer match for client "+ID+" that wants "+interest);
-    }
 
-    public void action(){
+    @Override
+    public void match() {
         if(interest=="Laptop"){
-            System.out.println("Client "+ID+" Takes a picture");
+            System.out.println("Client "+ID+" buys Laptop and takes a picture");
         }
         if(interest=="Desktop"){
-            System.out.println("Client "+ID+" runs an Chrome");
+            System.out.println("Client "+ID+" buys Desktop and runs an Chrome");
         }
     }
 
