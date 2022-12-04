@@ -2,6 +2,8 @@ package panos;
 
 import java.util.Scanner;
 import java.util.Random;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
 
@@ -21,6 +23,8 @@ public class Main {
 
         // Initialize our store
         Store s1 = Store.getInstance("Panos_Computer_Shop");
+
+
 
 
 //        Dummy Data
@@ -53,6 +57,8 @@ public class Main {
                                 Camera_Array[randomIndexCamera],
                                 Battery_Array[randomIndexBattery]));
                 System.out.println(l1.toString());
+                s1.addLaptop();
+
 
             } else {
                 // Create Desktop
@@ -62,10 +68,18 @@ public class Main {
                                 CPU_Array[randomIndexCPU],
                                 Price_Array[randomIndexPrice]));
                 System.out.println(d1.toString());
+                s1.addDesktop();
+
 
             }
             }
 
+        // print storage
+
+        System.out.println("Desktops: "+s1.getDesktopCount());
+        System.out.println("Laptops: "+s1.getLaptopCount());
+
+        Subscription sub1 = new Subscription();
 
         System.out.println("Enter number of clients:");
         int clients = myobj.nextInt();
@@ -73,7 +87,26 @@ public class Main {
             Random generator = new Random();
             int randomIndexCategory = generator.nextInt(Category.length);
             System.out.println("client "+(i+1)+" wants "+Category[randomIndexCategory]);
+            Client c1 = new Client(i+1,Category[randomIndexCategory]);
+
+            // remove from array
+            if(Category[randomIndexCategory]=="Laptop"&&s1.getLaptopCount()>0){
+                s1.removeLaptop();
+            }
+            if(Category[randomIndexCategory]=="Desktop"&&s1.getDesktopCount()>0){
+                s1.removeDesktop();
+            }
+
+            sub1.addListener(c1);
+
         }
+
+
+        System.out.println("Desktops: "+s1.getDesktopCount());
+        System.out.println("Laptops: "+s1.getLaptopCount());
+
+        sub1.computerMatch();
+
 
 
 
