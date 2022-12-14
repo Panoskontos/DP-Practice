@@ -7,8 +7,13 @@ import java.util.List;
 
 // implements Lazy Initialization with on-demand holder
 public class Store implements Subscribe{
+
+//    Our Store name
     private static String name;
 
+
+
+//    Observer implementation
     private List<Observer> endiaferomenoi = new ArrayList<>();
     private int laptopCount = 0;
     private int DesktopCount = 0;
@@ -16,6 +21,9 @@ public class Store implements Subscribe{
     private int DesktopInterestedCount = 0;
 
 
+
+
+//    Singleton implementation
     private Store(String name){
         this.name = name;
     }
@@ -23,12 +31,22 @@ public class Store implements Subscribe{
         static Store Store = new Store(name);
     }
     public static Store getInstance(String name){
+
         return SingletonHolder.Store;
     }
+
+
+
+
+//    Abstract Factory Create Computer
     public static Computer getComputer(ComputerAbstractFactory factory){
+
         return factory.createComputer();
     }
 
+
+
+//    Getters
     public int getLaptopCount() {
         return laptopCount;
     }
@@ -45,6 +63,10 @@ public class Store implements Subscribe{
         return DesktopCount;
     }
 
+
+
+
+//    Setters for latops
     public void addLaptop(){
         this.laptopCount =this.laptopCount+1;
     }
@@ -59,6 +81,11 @@ public class Store implements Subscribe{
         this.DesktopCount =this.DesktopCount-1;
     }
 
+
+
+
+
+//    Observer implementation
     @Override
     public void addSubscriber(Observer observer, String interest) {
         endiaferomenoi.add(observer);
@@ -68,9 +95,6 @@ public class Store implements Subscribe{
         if(interest=="Desktop"){
             DesktopInterestedCount=DesktopInterestedCount+1;
         }
-
-
-
 
     }
 

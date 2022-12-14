@@ -16,8 +16,7 @@ public class Main {
         Scanner myobj = new Scanner(System.in);
         System.out.println("Enter number of computers:");
         int computers = myobj.nextInt();
-//        System.out.println("Enter number of clients:");
-//        int clients = myobj.nextInt();
+//
 
 
 
@@ -44,6 +43,8 @@ public class Main {
             int randomIndexRAM = generator.nextInt(RAM_Array.length);
             int randomIndexCPU = generator.nextInt(CPU_Array.length);
             int randomIndexPrice = generator.nextInt(Price_Array.length);
+
+//            Laptop vs Desktop
             if(Category[randomIndexCategory]=="Laptop"){
                 int randomIndexCamera = generator.nextInt(Camera_Array.length);
                 int randomIndexBattery = generator.nextInt(Battery_Array.length);
@@ -102,7 +103,7 @@ public class Main {
 
         }
         System.out.println("\n--------------------------------------------------\n");
-
+;
 
 
 //
